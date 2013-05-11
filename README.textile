@@ -1,7 +1,10 @@
 h1. ArduinoThread
 
 A simple way to run multiple stuff in Arduino.
-This Library helps a lot people who code "big"
+This Library helps to maintain organized and to facilitate the use of multiple tasks.
+NO, Arduino does not support "REAL" parallel threads, but, we can make use of this Class to improve our code, and easily schedule tasks with fixed (or variable) time between runs.
+We can use Timers Interrupts, and make it really powerfull, running "pseudo-background" tasks on the rug.
+For example, I personaly use it for all my projects, and put all sensor aquisition and filtering inside it, leaving the main loop, just for logic and "cool" part.
 
 h2. Instalation
 
@@ -11,6 +14,32 @@ h2. Instalation
 
 h2. Getting Started
 
+There are many examples showing many ways to use it. Here, we will explain Class itself, what it does and "how" it does.
+
+There are basicaly, two Classes included in this Library:
+@Thread@ and @ThreadController@ (that inherits from Thread).
+
+- @Thread class@ := This is the basic class, witch contains methods to set and run callbacks, check if the Thread should be runned, and also creates a unique ThreadID on the instantiation.
+
+- @ThreadController class@ := Responsable for "holding" multiple Threads. Can also be called as "a group of Threads", and is used to perform run in every Thread ONLY when needed.
+
+* The instantiation of a Thread class is very simple:
+
+pre. Thread myThread = Thread();
+// or, if initializing a pointer
+Thread* myThread = new Thread();
+
+
+* Setting up a thread is essential. You can configure many things:
+
+pre. myThread.enabled = true; // Default enabled value is true
+myThread.setInterval(10); // Setts the wanted interval to be 10ms
+thread.ThreadName = "myThread tag"; // This is useful for debugging
+
+Ok, creating Threads are not so hard. But what do we do with them now?
+
+* First, let's see how Threads should work, to understand what a @ThreadController@ is and does
+pre. 
 
 
 h3. TIPs and Warnings
