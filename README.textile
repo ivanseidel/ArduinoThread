@@ -56,9 +56,9 @@ Now that you got the idea, let's think a little bit: What if i have 3, 5, 100 Th
 pre. // Instantiate a new ThreadController
 ThreadController controller = ThreadController();
 // Now, put a bunch of Threads inside it, FEED it!
-pre. controller.add(myThread);
-controller.add(hisThread);
-controller.add(sensorReadings);
+pre. controller.add(&myThread); // Notice the & before the thread, IF it's not instantied as a pointer.
+controller.add(&hisThread);
+controller.add(&sensorReadings);
 ...
 
 * You have created, configured, grouped it. What is missing? Yes, whe should RUN it!
@@ -96,22 +96,28 @@ h2. Library Reference
 h3. You should know:
 
 - @bool Thread::enabled@ := Enables or disables the Thread. (do not stop it from running, but will return false when shouldRun() is called)
-- @int Thread::ThreadID@ := Theoretically, it's the address of memory. It's unique, and can be used to compare if two threads are identical.
-- @int Thread::ThreadName@ := A human-redable thread name. Default is "Thread ThreadID" eg.: "Thread 141515";
 
 - @void Thread::setInterval()@ := Setts the desired interval for the Thread (in Ms).
 - @bool Thread::shouldRun()@ := Returns true, if the Thread should be runned. (Basicaly, the logic is: (reached time AND is enabled?).
-- @void Thread::runned()@ := Used to reset internal timer of the Thread. This is automaticaly called AFTER a call to @run()@.
+- @void Thread::onRun(void (*callback)(void))@ := The target callback function to be called.
+- @void Thread::run()@ := This will run the Thread (call the callback function).
 
-
+- @void ThreadController::run()@ := This will run the all @Threads@ within the @ThreadController@, only if needed (if shouldRun returns true);
+- @bool ThreadController::add(Thread* _thread)@ := This will add a the thread to the ThreadController, and return @true@ if suceeded (it the array is full, returns false).
+- @void ThreadController::remove(Thread* _thread)@ := This will remove the Thread from the ThreadController.
+- @void ThreadController::remove(int index)@ := This will remove the thread on the position @index@.
+- @void ThreadController::clear()@ := This will remove ALL threads from the ThreadController array.
+- @void ThreadController::size(bool cached = false)@ := Returns how many Threads are allocated inside the ThreadController. If cached = true, this will run the actual code to calculate the size. Should not be required.
+- @Thread* ThreadController::get(int index)@ := Returns the Thread on the position @index@.
 
 h3. You don't need to know:
 
-- @static void (*callbacks[])()@ := Stores all callbacks for all timers
-
+- @int Thread::ThreadID@ := Theoretically, it's the address of memory. It's unique, and can be used to compare if two threads are identical.
+- @int Thread::ThreadName@ := A human-redable thread name. Default is "Thread ThreadID" eg.: "Thread 141515";
+- protected: @void Thread::runned()@ := Used to reset internal timer of the Thread. This is automaticaly called AFTER a call to @run()@.
 
 h2. Version History
 
-* @1.0 (2013-30-03): Initial release.@
+* @1.0 (2013-05-11): Initial release.@
 
 !https://d2weczhvl823v0.cloudfront.net/ivanseidel/DueTimer/trend.png(DueTimer)!
