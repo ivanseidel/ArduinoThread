@@ -107,7 +107,7 @@ h3. You should know:
 - @void ThreadController::remove(Thread* _thread)@ := This will remove the Thread from the ThreadController.
 - @void ThreadController::remove(int index)@ := This will remove the thread on the position @index@.
 - @void ThreadController::clear()@ := This will remove ALL threads from the ThreadController array.
-- @void ThreadController::size(bool cached = false)@ := Returns how many Threads are allocated inside the ThreadController. If cached = true, this will run the actual code to calculate the size. Should not be required.
+- @void ThreadController::size(bool cached = true)@ := Returns how many Threads are allocated inside the ThreadController. If cached is @false@, will force the calculation of threads.
 - @Thread* ThreadController::get(int index)@ := Returns the Thread on the position @index@.
 
 h3. You don't need to know:
