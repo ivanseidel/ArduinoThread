@@ -86,7 +86,7 @@ h3. TIPs and Warnings
 * Running tasks on the Timer interrupts must be tought REALLY carefully
 You cannot use "sleep()" inside a interrupt, because it will get into a infinite loop.
 Things must do stuff quickly. Waiting too loooong on a interrupt, means waiting too loooong on the main code (loop)
-Thinks might get "scrambled". Since Timers interrupts actualy "BREAK" your code in half and start running the interrupt, you might want to call @noInterrupts@ and @interrupts@ in time sensitive cases:
+Things might get "scrambled". Since Timers interrupts actualy "BREAK" your code in half and start running the interrupt, you might want to call @noInterrupts@ and @interrupts@ on places where cannot be interrupted:
 
 pre. noInterrupts();
 // Put the code that CANNOT be interrupted...
