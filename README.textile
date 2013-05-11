@@ -34,79 +34,67 @@ Thread* myThread = new Thread();
 
 pre. myThread.enabled = true; // Default enabled value is true
 myThread.setInterval(10); // Setts the wanted interval to be 10ms
-thread.ThreadName = "myThread tag"; // This is useful for debugging
+myThread.ThreadName = "myThread tag"; // This is useful for debugging
+// This will set the callback of the Thread: "What should I run"?
+myThread.onRun(callback_function); // callback_function is the name of the function
+
 
 Ok, creating Threads are not so hard. But what do we do with them now?
 
 * First, let's see how Threads should work, to understand what a @ThreadController@ is and does
-pre. 
+
+pre. // First check if our Thread "should" be runned
+if(myThread.shouldRun()){
+  // Yes, the Thread should be runned, let's run it
+  myThread.run();
+}
+
+Now that you got the idea, let's think a little bit: What if i have 3, 5, 100 Threads. Do I need to check EACH one?!?
+
+* The answer is: NO. Create a @ThreadController@, and put all your boring-complex Threads inside it!
+
+pre. // Instantiate a new ThreadController
+ThreadController controller = ThreadController();
+// Now, put a bunch of Threads inside it, FEED it!
+pre. controller.add(myThread);
+controller.add(hisThread);
+controller.add(sensorReadings);
+...
+
+* You have created, configured, grouped it. What is missing? Yes, whe should RUN it!
+
+pre. // call run on a Thread or a ThreadController to run it
+controller.run();
+
+This will run all the Threads that NEED to be runned.
+
+Congratulations, you have learned the basics of @ArduinoThread@. If you want some TIPS, see bellow.
 
 
 h3. TIPs and Warnings
 
-* Prefer to use @Timer3@, @Timer4@ and @Timer5@ since they have no connection to hardware pins.
+* ThreadController is not a @LinkedList@. It's "MAXIMUM" size (the maximum Threads that it can store) is defined on ThreadController.h (default is 15)
 
-pre. Timer4.attatchInterrupt(handler).setFrequency(10).start();
-// Is the same as:
-Timer4.attatchInterrupt(handler);
-Timer4.setFrequency(10);
-Timer4.start();
+* It's a good idea, to create a Timer interrupt and call a ThreadController.run() there. That way, you don't need to worry about reading sensors and doing time-sensitive stuff on your main code (loop). Check @ControllerWithTimer@ example.
 
-pre. // To create a custom timer, refer to:
-DueTimer myTimer = DueTimer(0); // Creates a Timer 0 object.
-DueTimer myTimer = DueTimer(3); // Creates a Timer 3 object.
-DueTimer myTimer = DueTimer(t); // Creates a Timer t object.
-// Note: Maximum t allowed is 8, as there is only 9 timers [0..8];
+* Inheriting from @Thread@ or even @ThreadController@ is always a good idea. For example, I always create base classes of sensors that extends @Thread@, so that I can "register" the sensors inside a ThreadController, and forget about really reading sensors, just getting theirs values within my main code. Checkout @SensorThread@ example.
 
-pre. Timer1.setHandler(handler1).start(10);
-Timer1.setHandler(handler2).start(10);
-DueTimer myTimer = DueTimer(1);
-myTimer.setHandler(handler3).start(20);
-// Will run only handle3, on Timer 1 (You are just overriding the callback)
-
-pre. Timer.getAvailable().attachInterrupt(callback1).start(10);
-// Start timer on first available timer
-DueTimer::getAvailable().attachInterrupt(callback2).start(10);
-// Start timer on seccond available timer
-// And so on...
+* Remember that @ThreadController@ is in fact, a Thread. If you want to enable or disable a GROUP of Threads, think about putting all of them inside a ThreadController, and adding this ThreadController to another ThreadController (YES! One ThreadController inside another). Check @ControllerInController@ example.
 
 h2. Library Reference
 
 h3. You should know:
 
-- @getAvailable()@ := Get the first available Timer.
+- @Thread.()@ := Get the first available Timer.
 
-- @attachInterrupt(void (*isr)())@ := Attach a interrupt (callback function) for the timer of the object.
-
-- @detachInterrupt()@ := Detach current callback of timer.
-
-- @start(long microseconds = -1)@ := Start the timer with an optional period parameter.
-
-- @stop()@ := Stop the timer
-
-- @setFrequency(long frequency)@ := Set the timer frequency
-
-- @long getFrequency()@ := Get the timer frequency
-
-- @setPeriod(long microseconds)@ := Set the timer period (in microseconds)
-
-- @long getPeriod()@ := Get the timer period (in microseconds)
 
 h3. You don't need to know:
-
-- @int timer@ := Stores the object timer id (to acces Timers struct array).
-
-- @DueTimer(int _timer)@ := Instantiate a new DueTimer object for Timer _timer (NOTE: All objects are already instantied!).
-
-- @static const Timer Timers[]@ := Stores all timers information
 
 - @static void (*callbacks[])()@ := Stores all callbacks for all timers
 
 
 h2. Version History
 
-* @1.2 (2013-30-03): Clock selection. Getters. getAvailable(). "AvailableTimer" Example.@
-* @1.1 (2013-30-03): Added Timer6, Timer7, Timer8 (TC2).@
-* @1.0 (2013-30-03): Original release.@
+* @1.0 (2013-30-03): Initial release.@
 
 !https://d2weczhvl823v0.cloudfront.net/ivanseidel/DueTimer/trend.png(DueTimer)!
