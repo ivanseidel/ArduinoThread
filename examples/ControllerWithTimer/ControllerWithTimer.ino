@@ -16,20 +16,19 @@
 // ThreadController that will controll all threads
 ThreadController controll = ThreadController();
 
-//My Thread (as a pointer)
-Thread* myThread = new Thread();
-//His Thread (not pointer)
+//My Thread
+Thread myThread = Thread();
+//His Thread
 Thread hisThread = Thread();
 
 // callback for myThread
-void niceCallback(){
-	Serial.print("COOL! I'm running on: ");
-	Serial.println(millis());
+void myThreadCallback(){
+	Serial.println("myThread\t\tcallback");
 }
 
 // callback for hisThread
-void boringCallback(){
-	Serial.println("BORING...");
+void hisThreadCallback(){
+	Serial.println("\thisThread\tcallback");
 }
 	
 // This is the callback for the Timer
@@ -41,21 +40,21 @@ void setup(){
 	Serial.begin(9600);
 
 	// Configure myThread
-	myThread->onRun(niceCallback);
-	myThread->setInterval(500);
+	myThread.onRun(myThreadCallback);
+	myThread.setInterval(500);
 
 	// Configure myThread
-	hisThread.onRun(boringCallback);
-	hisThread.setInterval(250);
+	hisThread.onRun(hisThreadCallback);
+	hisThread.setInterval(200);
 
 	// Adds both threads to the controller
-	controll.add(myThread);
-	controll.add(&hisThread); // & to pass the pointer to it
+	controll.add(&myThread); // & to pass the pointer to it
+	controll.add(&hisThread);
 
 	/*
 		If using DueTimer...
 	*/
-	// Timer1.attachInterrupt(timerCallback).start(10000);
+	// Timer1.attachInterrupt(timerCallback).start(20000);
 
 	/*
 		If using TimerOne...
@@ -65,11 +64,37 @@ void setup(){
 	// Timer1.start();
 }
 
+void waitSerial(){
+	while (!Serial.available());
+	delay(10);
+    while (Serial.available() && Serial.read());	
+}
+
 void loop(){
 	while(1){
-		float h = 3.1415;
-		h/=2;
-		Serial.println("Help me! I'm stuck here...");
-		delay(1000);
+		noInterrupts();	// Call to disable interrupts
+		Serial.println("Type anyting to stop myThread!");
+		interrupts();	// Call to enable interrupts
+		waitSerial();
+		myThread.enabled = false;
+
+		noInterrupts();
+		Serial.println("Type anyting to stop hisThread!");
+		interrupts();
+		waitSerial();
+		hisThread.enabled = false;
+
+		noInterrupts();
+		Serial.println("Type anyting to enable myThread!");
+		interrupts();
+		waitSerial();
+		myThread.enabled = true;
+
+		noInterrupts();
+		Serial.println("Type anyting to enable hisThread!");
+		interrupts();
+		waitSerial();
+		hisThread.enabled = true;
+
 	}
 }
