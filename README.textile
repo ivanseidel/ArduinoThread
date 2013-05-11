@@ -120,4 +120,4 @@ h2. Version History
 
 * @1.0 (2013-05-11): Initial release.@
 
-!https://d2weczhvl823v0.cloudfront.net/ivanseidel/DueTimer/trend.png(DueTimer)!
+!https://d2weczhvl823v0.cloudfront.net/ivanseidel/ArduinoThread/trend.png(ArduinoThread)!
