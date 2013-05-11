@@ -40,7 +40,7 @@ public:
 	Thread(void (*callback)(void) = NULL, long _interval = 0);
 
 	// Set the desired interval for calls, and update _cached_next_run
-	virtual Thread setInterval(long _interval);
+	virtual void setInterval(long _interval);
 
 	// Return if the Thread should be runned or not
 	virtual bool shouldRun(long time = -1);

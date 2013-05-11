@@ -25,15 +25,12 @@ void Thread::runned(long time){
 	_cached_next_run = last_run + interval;
 }
 
-Thread Thread::setInterval(long _interval){
+void Thread::setInterval(long _interval){
 	// Filter intervals less than 0
 	interval = (_interval < 0? 0: _interval);
 
 	// Cache the next run based on the last_run
 	_cached_next_run = last_run + interval;
-
-	// Return self object
-	return *this;
 }
 
 bool Thread::shouldRun(long time){
