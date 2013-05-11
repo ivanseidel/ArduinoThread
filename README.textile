@@ -95,7 +95,14 @@ h2. Library Reference
 
 h3. You should know:
 
-- @Thread.()@ := Get the first available Timer.
+- @bool Thread::enabled@ := Enables or disables the Thread. (do not stop it from running, but will return false when shouldRun() is called)
+- @int Thread::ThreadID@ := Theoretically, it's the address of memory. It's unique, and can be used to compare if two threads are identical.
+- @int Thread::ThreadName@ := A human-redable thread name. Default is "Thread ThreadID" eg.: "Thread 141515";
+
+- @void Thread::setInterval()@ := Setts the desired interval for the Thread (in Ms).
+- @bool Thread::shouldRun()@ := Returns true, if the Thread should be runned. (Basicaly, the logic is: (reached time AND is enabled?).
+- @void Thread::runned()@ := Used to reset internal timer of the Thread. This is automaticaly called AFTER a call to @run()@.
+
 
 
 h3. You don't need to know:
