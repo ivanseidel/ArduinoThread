@@ -81,6 +81,16 @@ h3. TIPs and Warnings
 
 * Remember that @ThreadController@ is in fact, a Thread. If you want to enable or disable a GROUP of Threads, think about putting all of them inside a ThreadController, and adding this ThreadController to another ThreadController (YES! One ThreadController inside another). Check @ControllerInController@ example.
 
+* Running tasks on the Timer interrupts must be tought REALLY carefully
+You cannot use "sleep()" inside a interrupt, because it will get into a infinite loop.
+Things must do stuff quickly. Waiting too loooong on a interrupt, means waiting too loooong on the main code (loop)
+Thinks might get "scrambled". Since Timers interrupts actualy "BREAK" your code in half and start running the interrupt, you might want to call @noInterrupts@ and @interrupts@ in time sensitive cases:
+
+pre. noInterrupts();
+// Put the code that CANNOT be interrupted...
+interrupts(); // This will enable the interrupts egain. DO NOT FORGET!
+
+
 h2. Library Reference
 
 h3. You should know:
