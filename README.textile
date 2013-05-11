@@ -1,0 +1,83 @@
+h1. ArduinoThread
+
+A simple way to run multiple stuff in Arduino.
+This Library helps a lot people who code "big"
+
+h2. Instalation
+
+1. "Download":https://github.com/ivanseidel/ArduinoThread/archive/master.zip the Master branch from gitHub.
+2. Unzip and modify the Folder name to "ArduinoThread" (Remove the '-master')
+3. Paste the modified folder on your Library folder (On your @Libraries@ folder inside Sketchbooks or Arduino software).
+
+h2. Getting Started
+
+
+
+h3. TIPs and Warnings
+
+* Prefer to use @Timer3@, @Timer4@ and @Timer5@ since they have no connection to hardware pins.
+
+pre. Timer4.attatchInterrupt(handler).setFrequency(10).start();
+// Is the same as:
+Timer4.attatchInterrupt(handler);
+Timer4.setFrequency(10);
+Timer4.start();
+
+pre. // To create a custom timer, refer to:
+DueTimer myTimer = DueTimer(0); // Creates a Timer 0 object.
+DueTimer myTimer = DueTimer(3); // Creates a Timer 3 object.
+DueTimer myTimer = DueTimer(t); // Creates a Timer t object.
+// Note: Maximum t allowed is 8, as there is only 9 timers [0..8];
+
+pre. Timer1.setHandler(handler1).start(10);
+Timer1.setHandler(handler2).start(10);
+DueTimer myTimer = DueTimer(1);
+myTimer.setHandler(handler3).start(20);
+// Will run only handle3, on Timer 1 (You are just overriding the callback)
+
+pre. Timer.getAvailable().attachInterrupt(callback1).start(10);
+// Start timer on first available timer
+DueTimer::getAvailable().attachInterrupt(callback2).start(10);
+// Start timer on seccond available timer
+// And so on...
+
+h2. Library Reference
+
+h3. You should know:
+
+- @getAvailable()@ := Get the first available Timer.
+
+- @attachInterrupt(void (*isr)())@ := Attach a interrupt (callback function) for the timer of the object.
+
+- @detachInterrupt()@ := Detach current callback of timer.
+
+- @start(long microseconds = -1)@ := Start the timer with an optional period parameter.
+
+- @stop()@ := Stop the timer
+
+- @setFrequency(long frequency)@ := Set the timer frequency
+
+- @long getFrequency()@ := Get the timer frequency
+
+- @setPeriod(long microseconds)@ := Set the timer period (in microseconds)
+
+- @long getPeriod()@ := Get the timer period (in microseconds)
+
+h3. You don't need to know:
+
+- @int timer@ := Stores the object timer id (to acces Timers struct array).
+
+- @DueTimer(int _timer)@ := Instantiate a new DueTimer object for Timer _timer (NOTE: All objects are already instantied!).
+
+- @static const Timer Timers[]@ := Stores all timers information
+
+- @static void (*callbacks[])()@ := Stores all callbacks for all timers
+
+
+h2. Version History
+
+* @1.2 (2013-30-03): Clock selection. Getters. getAvailable(). "AvailableTimer" Example.@
+* @1.1 (2013-30-03): Added Timer6, Timer7, Timer8 (TC2).@
+* @1.0 (2013-30-03): Original release.@
+
+!https://d2weczhvl823v0.cloudfront.net/ivanseidel/DueTimer/trend.png(DueTimer)!
