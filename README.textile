@@ -58,7 +58,7 @@ Now that you got the idea, let's think a little bit: What if i have 3, 5, 100 Th
 pre. // Instantiate a new ThreadController
 ThreadController controller = ThreadController();
 // Now, put a bunch of Threads inside it, FEED it!
-pre. controller.add(&myThread); // Notice the & before the thread, IF it's not instantied as a pointer.
+controller.add(&myThread); // Notice the & before the thread, IF it's not instantied as a pointer.
 controller.add(&hisThread);
 controller.add(&sensorReadings);
 ...
