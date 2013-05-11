@@ -1,11 +1,11 @@
 /*
  	Thread.h - An runnable object
 
-	Contains information about the running Thread, such as:
-		Delay between calls,
-		If it should be runned,
+	Thread is responsable for holding the "action" for something,
+	also, it responds if it "should" or "should not" run, based on
+	the current time;
 
-	ThreadController is an extended class of Thread, since you can include
+	For instructions, go to https://github.com/ivanseidel/ArduinoTimer
 
 	Created by Ivan Seidel Gomes, March, 2013.
 	Released into the public domain.
@@ -40,7 +40,7 @@ public:
 	Thread(void (*callback)(void) = NULL, long _interval = 0);
 
 	// Set the desired interval for calls, and update _cached_next_run
-	Thread setInterval(long _interval);
+	virtual Thread setInterval(long _interval);
 
 	// Return if the Thread should be runned or not
 	virtual bool shouldRun(long time = -1);
