@@ -41,6 +41,7 @@ public:
 	void run(){
 		// Reads the analog pin, and saves it localy
 		value = map(analogRead(pin), 0,1023,0,255);
+		runned();
 	}
 };
 
