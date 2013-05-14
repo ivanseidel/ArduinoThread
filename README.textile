@@ -77,6 +77,8 @@ h3. TIPs and Warnings
 
 * ThreadController is not a @LinkedList@. It's "MAXIMUM" size (the maximum Threads that it can store) is defined on ThreadController.h (default is 15)
 
+* !!!! VERY IMPORTANT !!!! When extending @Thread@ class and implementing the function @run()@, always remember to put @runned();@ after all, otherwhise the @Thread@ will ALWAYS run.
+
 * It's a good idea, to create a Timer interrupt and call a ThreadController.run() there. That way, you don't need to worry about reading sensors and doing time-sensitive stuff on your main code (loop). Check @ControllerWithTimer@ example.
 
 * Inheriting from @Thread@ or even @ThreadController@ is always a good idea. For example, I always create base classes of sensors that extends @Thread@, so that I can "register" the sensors inside a ThreadController, and forget about really reading sensors, just getting theirs values within my main code. Checkout @SensorThread@ example.
