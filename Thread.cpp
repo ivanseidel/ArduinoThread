@@ -7,8 +7,10 @@ Thread::Thread(void (*callback)(void), long _interval){
 	last_run = 0;
 
 	ThreadID = (int)this;
-	ThreadName = "Thread ";
-	ThreadName = ThreadName + ThreadID;
+	#ifdef USE_THREAD_NAMES
+		ThreadName = "Thread ";
+		ThreadName = ThreadName + ThreadID;
+	#endif
 
 	setInterval(_interval);
 };
