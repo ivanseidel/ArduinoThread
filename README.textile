@@ -14,6 +14,9 @@ h2. Instalation
 2. Unzip and modify the Folder name to "ArduinoThread" (Remove the '-master')
 3. Paste the modified folder on your Library folder (On your @Libraries@ folder inside Sketchbooks or Arduino software).
 
+**If you are here, because another Library requires this class, just don't waste time reading bellow. Install and ready.**
+
+
 h2. Getting Started
 
 There are many examples showing many ways to use it. Here, we will explain Class itself, what it does and "how" it does.
