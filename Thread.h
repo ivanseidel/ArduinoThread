@@ -16,26 +16,49 @@
 
 #include <Arduino.h>
 #include <inttypes.h>
-#define MAX_THREADS		15;
+
+/*
+	Uncomment this line to enable ThreadName Strings.
+
+	It might be usefull if you are loging thread with Serial,
+	or displaying a list of threads...
+*/
+// #define USE_THREAD_NAMES	1
 
 class Thread{
 protected:
-	long 	interval,			// Desired interval between runs
-			last_run,			// Last runned time in Ms
-			_cached_next_run;	// Scheduled run in Ms (MUST BE CACHED)
+	// Desired interval between runs
+	long interval;
 
-	void runned(long time=-1);	// IMPORTANT! Run after all calls to run()
-								// Updates last_run and cache next run.
-								// NOTE: This MUST be called if extending
-								// this class and implementing run() method
+	// Last runned time in Ms
+	long last_run;
 
-	void (*_onRun)(void);		// Callback for run() if not implemented
+	// Scheduled run in Ms (MUST BE CACHED)	
+	long _cached_next_run;
+
+	/*
+		IMPORTANT! Run after all calls to run()
+		Updates last_run and cache next run.
+		NOTE: This MUST be called if extending
+		this class and implementing run() method
+	*/
+	void runned(long time=-1);	
+
+	// Callback for run() if not implemented
+	void (*_onRun)(void);		
 
 public:
-	bool 	enabled;			// If the current Thread is enabled or not
 
-	int ThreadID;				// ID of the Thread (initialized from memory adr.)
-	String ThreadName;			// Thread Name (used for better UI).
+	// If the current Thread is enabled or not
+	bool enabled;
+
+	// ID of the Thread (initialized from memory adr.)
+	int ThreadID;
+
+	#ifdef USE_THREAD_NAMES
+		// Thread Name (used for better UI).
+		String ThreadName;			
+	#endif
 
 	Thread(void (*callback)(void) = NULL, long _interval = 0);
 

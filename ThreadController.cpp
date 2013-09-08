@@ -8,9 +8,11 @@ ThreadController::ThreadController(long _interval){
 	Thread::Thread();
 	setInterval(_interval);
 
-	// Overrides name
-	ThreadName = "ThreadController ";
-	ThreadName = ThreadName + ThreadID;
+	#ifdef USE_THREAD_NAMES
+		// Overrides name
+		ThreadName = "ThreadController ";
+		ThreadName = ThreadName + ThreadID;
+	#endif
 }
 
 /*
