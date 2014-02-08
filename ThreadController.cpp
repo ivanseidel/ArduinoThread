@@ -1,11 +1,10 @@
 #include "Thread.h"
 #include "ThreadController.h"
 
-ThreadController::ThreadController(long _interval){
+ThreadController::ThreadController(long _interval): Thread(){
 	cached_size = 0;
 
 	clear();
-	Thread::Thread();
 	setInterval(_interval);
 
 	#ifdef USE_THREAD_NAMES
