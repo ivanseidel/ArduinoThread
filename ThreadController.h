@@ -7,7 +7,7 @@
 	ThreadController is an extended class of Thread, because of that,
 	it allows you to add a ThreadController inside another ThreadController...
 
-	For instructions, go to https://github.com/ivanseidel/ArduinoTimer
+	For instructions, go to https://github.com/ivanseidel/ArduinoThread
 
 	Created by Ivan Seidel Gomes, March, 2013.
 	Released into the public domain.
