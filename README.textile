@@ -93,6 +93,8 @@ h3. TIPs and Warnings
 
 * Remember that @ThreadController@ is in fact, a Thread. If you want to enable or disable a GROUP of Threads, think about putting all of them inside a ThreadController, and adding this ThreadController to another ThreadController (YES! One ThreadController inside another). Check @ControllerInController@ example.
 
+* Check the full example @CustomTimedThread@ for a cool application of Threads that runs for a period, after a button is pressed.
+
 * Running tasks on the Timer interrupts must be tought REALLY carefully
 You cannot use "sleep()" inside a interrupt, because it will get into a infinite loop.
 Things must do stuff quickly. Waiting too loooong on a interrupt, means waiting too loooong on the main code (loop)
@@ -131,6 +133,7 @@ h3. You don't need to know:
 
 h2. Version History
 
+* @(Jun/2014): New Example: ControllerWithTimer@
 * @1.0 (2013-05-11): Initial release.@
 
 !https://d2weczhvl823v0.cloudfront.net/ivanseidel/ArduinoThread/trend.png(ArduinoThread)!
