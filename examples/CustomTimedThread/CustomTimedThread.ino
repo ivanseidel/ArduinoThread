@@ -194,6 +194,13 @@ ButtonThread *btn3Thread;
 */
 void btn1Callback(){
 	// When it's running, this thread will write to the serial.
+	/*
+		This math will print 'how long' the thread has been running,
+		since the button was/is pressed.
+
+		After pressing it, it should print as 0, and goes up untill
+		the thread duration (in this case, +-5000ms).
+	*/
 	Serial.print("BTN 1 Thread: ");
 	Serial.println(millis() - btn1Thread._lastButtonPushed);
 }
@@ -224,7 +231,7 @@ void setup(){
 	pinMode(LED, OUTPUT);
 
 	// Configure btn1Thread callback
-	// (During the 'enabled' time, it will run every 50ms, aka Interval)
+	// (During the 'enabled' time, it will run every 100ms, aka Interval)
 	btn1Thread.onRun(btn1Callback);
 	btn1Thread.setInterval(100); 
 
