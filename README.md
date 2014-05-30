@@ -1,10 +1,6 @@
 ![ArduinoThread Logo](https://raw.githubusercontent.com/ivanseidel/ArduinoThread/master/images/ArduinoThread.png)
 
-# ArduinoThread
-
-A simple way to run multiple stuff in Arduino.
-
-NO, Arduino does not support "REAL" parallel tasks, but we can make use of this Class to
+No, Arduino does not support "REAL" parallel tasks (aka Threads), but we can make use of this Library to
 improve our code, and easily schedule tasks with fixed (or variable) time between runs.
 
 This Library helps to maintain organized and to facilitate the use of multiple tasks. We can
