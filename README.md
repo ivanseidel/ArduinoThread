@@ -1,3 +1,5 @@
+![ArduinoThread Logo](https://raw.githubusercontent.com/ivanseidel/ArduinoThread/master/images/ArduinoThread.png)
+
 # ArduinoThread
 
 A simple way to run multiple stuff in Arduino.
@@ -56,7 +58,7 @@ myThread.setInterval(10); // Setts the wanted interval to be 10ms
 myThread.ThreadName = "myThread tag";
 // This will set the callback of the Thread: "What should I run"?
 myThread.onRun(callback_function); // callback_function is the name of the function
-
+```
 
 Ok, creating Threads are not so hard. But what do we do with them now?
 
@@ -68,6 +70,7 @@ if(myThread.shouldRun()){
   // Yes, the Thread should be runned, let's run it
   myThread.run();
 }
+```
 
 Now that you got the idea, let's think a little bit: What if i have 3, 5, 100 Threads. Do I need to check EACH one?!?
 
@@ -81,12 +84,14 @@ controller.add(&myThread); // Notice the & before the thread, IF it's not instan
 controller.add(&hisThread);
 controller.add(&sensorReadings);
 ...
+```
 
 * You have created, configured, grouped it. What is missing? Yes, whe should RUN it!
 
 ```c++
 // call run on a Thread or a ThreadController to run it
 controller.run();
+```
 
 This will run all the Threads that NEED to be runned.
 
@@ -134,6 +139,7 @@ for a period, after a button is pressed.
 noInterrupts();
 // Put the code that CANNOT be interrupted...
 interrupts(); // This will enable the interrupts egain. DO NOT FORGET!
+```
 
 
 ## Library Reference
@@ -142,41 +148,28 @@ interrupts(); // This will enable the interrupts egain. DO NOT FORGET!
 
 - `bool Thread::enabled` - Enables or disables the Thread. (do not stop it from running, but will
   return false when shouldRun() is called)
-
 - `void Thread::setInterval()` - Setts the desired interval for the Thread (in Ms).
-
 - `bool Thread::shouldRun()` - Returns true, if the Thread should be runned.
   (Basicaly,the logic is: (reached time AND is enabled?).
-
 - `void Thread::onRun(<function>)` - The target callback function to be called.
-
 - `void Thread::run()` - This will run the Thread (call the callback function).
-
 - `int Thread::ThreadID` - Theoretically, it's the address of memory. It's unique, and can
   be used to compare if two threads are identical.
-
 - `int Thread::ThreadName` - A human-redable thread name. Default is "Thread ThreadID"
   eg.: "Thread 141515"; Note that to enable this attribute, you must uncomment the line that disables it on 'Thread.h';
-
 - protected: `void Thread::runned()` - Used to reset internal timer of the Thread.
   This is automaticaly called AFTER a call to `run()`.
 
 
 - `void ThreadController::run()` - This will run the all `Threads` within the `ThreadController`,
   only if needed (if shouldRun returns true);
-
 - `bool ThreadController::add(Thread* _thread)` - This will add a the thread to the ThreadController,
   and return `true` if suceeded (it the array is full, returns false).
-
 - `void ThreadController::remove(Thread* _thread)` - This will remove the Thread from the ThreadController.
-
 - `void ThreadController::remove(int index)` - This will remove the thread on the position `index`.
-
 - `void ThreadController::clear()` - This will remove ALL threads from the ThreadController array.
-
 - `void ThreadController::size(bool cached = true)` - Returns how many Threads are allocated
   inside the ThreadController. If cached is `false`, will force the calculation of threads.
-
 - `Thread* ThreadController::get(int index)` - Returns the Thread on the position `index`.
 
 ### You don't need to know:
@@ -187,4 +180,4 @@ interrupts(); // This will enable the interrupts egain. DO NOT FORGET!
 * `(Jun/2014): New Example: ControllerWithTimer`
 * `1.0 (2013-05-11): Initial release.`
 
-!https://d2weczhvl823v0.cloudfront.net/ivanseidel/ArduinoThread/trend.png(ArduinoThread)!
+![ArduinoThread](https://d2weczhvl823v0.cloudfront.net/ivanseidel/ArduinoThread/trend.png)
