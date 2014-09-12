@@ -18,6 +18,10 @@ ThreadController::ThreadController(long _interval): Thread(){
 	ThreadController run() (cool stuf)
 */
 void ThreadController::run(){
+	// Run this thread before
+	if(_onRun != NULL)
+		_onRun();
+
 	long time = millis();
 	int checks = 0;
 	for(int i = 0; i < MAX_THREADS && checks <= cached_size; i++){
