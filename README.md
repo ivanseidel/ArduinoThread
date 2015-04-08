@@ -1,6 +1,6 @@
-![ArduinoThread Logo](https://raw.githubusercontent.com/ivanseidel/ArduinoThread/master/images/ArduinoThread.png)
+![ArduinoThread Logo](https://raw.githubusercontent.com/ivanseidel/ArduinoThread/master/extras/ArduinoThread.png)
 
-No, Arduino does not support "REAL" parallel tasks (aka Threads), but we can make use of this Library to
+Arduino does not support "REAL" parallel tasks (aka Threads), but we can make use of this Library to
 improve our code, and easily schedule tasks with fixed (or variable) time between runs.
 
 This Library helps to maintain organized and to facilitate the use of multiple tasks. We can
@@ -14,6 +14,7 @@ filtering inside it, leaving the main loop, just for logic and "cool" part.
 1. "Download":https://github.com/ivanseidel/ArduinoThread/archive/master.zip the Master branch from gitHub.
 2. Unzip and modify the Folder name to "ArduinoThread" (Remove the '-master')
 3. Paste the modified folder on your Library folder (On your `Libraries` folder inside Sketchbooks or Arduino software).
+4. Restart Arduino IDE
 
 **If you are here, because another Library requires this class, just don't waste time reading bellow. Install and ready.**
 
@@ -170,10 +171,3 @@ interrupts(); // This will enable the interrupts egain. DO NOT FORGET!
 
 ### You don't need to know:
 - Nothing, yet ;)
-
-## Version History
-
-* `(Jun/2014): New Example: ControllerWithTimer`
-* `1.0 (2013-05-11): Initial release.`
-
-![ArduinoThread](https://d2weczhvl823v0.cloudfront.net/ivanseidel/ArduinoThread/trend.png)
