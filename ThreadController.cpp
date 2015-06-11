@@ -1,7 +1,7 @@
 #include "Thread.h"
 #include "ThreadController.h"
 
-ThreadController::ThreadController(long _interval): Thread(){
+ThreadController::ThreadController(unsigned long _interval): Thread(){
 	cached_size = 0;
 
 	clear();
@@ -22,7 +22,7 @@ void ThreadController::run(){
 	if(_onRun != NULL)
 		_onRun();
 
-	long time = millis();
+	unsigned long time = millis();
 	int checks = 0;
 	for(int i = 0; i < MAX_THREADS && checks <= cached_size; i++){
 		// Object exists? Is enabled? Timeout exceeded?

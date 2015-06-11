@@ -26,7 +26,7 @@ protected:
 	Thread* thread[MAX_THREADS];
 	int cached_size;
 public:
-	ThreadController(long _interval = 0);
+	ThreadController(unsigned long _interval = 0);
 
 	// run() Method is overrided
 	void run();
