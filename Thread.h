@@ -33,13 +33,13 @@
 class Thread{
 protected:
 	// Desired interval between runs
-	long interval;
+	unsigned long interval;
 
 	// Last runned time in Ms
-	long last_run;
+	unsigned long last_run;
 
 	// Scheduled run in Ms (MUST BE CACHED)	
-	long _cached_next_run;
+	unsigned long _cached_next_run;
 
 	/*
 		IMPORTANT! Run after all calls to run()
@@ -47,7 +47,10 @@ protected:
 		NOTE: This MUST be called if extending
 		this class and implementing run() method
 	*/
-	void runned(long time=-1);	
+	void runned(unsigned long time);
+
+	// Default is to mark it runned "now"
+	void runned() { runned(millis()); }
 
 	// Callback for run() if not implemented
 	void (*_onRun)(void);		
@@ -65,13 +68,16 @@ public:
 		String ThreadName;			
 	#endif
 
-	Thread(void (*callback)(void) = NULL, long _interval = 0);
+	Thread(void (*callback)(void) = NULL, unsigned long _interval = 0);
 
 	// Set the desired interval for calls, and update _cached_next_run
-	virtual void setInterval(long _interval);
+	virtual void setInterval(unsigned long _interval);
 
 	// Return if the Thread should be runned or not
-	virtual bool shouldRun(long time = -1);
+	virtual bool shouldRun(unsigned long time);
+
+	// Default is to check whether it should run "now"
+	bool shouldRun() { return shouldRun(millis()); }
 
 	// Callback set
 	void onRun(void (*callback)(void));
