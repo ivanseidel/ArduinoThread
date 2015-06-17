@@ -4,10 +4,18 @@ Arduino does not support "REAL" parallel tasks (aka Threads), but we can make us
 improve our code, and easily schedule tasks with fixed (or variable) time between runs.
 
 This Library helps to maintain organized and to facilitate the use of multiple tasks. We can
-use Timers Interrupts, and make it really powerfull, running "pseudo-background" tasks on the rug.
+use Timers Interrupts, and make it really powerfull, running "pseudo-background" tasks under the rug.
 
 For example, I personaly use it for all my projects, and put all sensor aquisition and
 filtering inside it, leaving the main loop, just for logic and "cool" part.
+
+#### ArduinoThreads is a library for managing the periodic execution of multiple tasks.
+
+Blinking an LED is often the very first thing an Arduino user learns. And this demonstrates that periodically performing one single task, like toggling the LED state, is really easy. However, one may quickly discover that managing multiple periodic tasks is not so simple if the tasks have different execution periods.
+
+ArduinoThreads is designed to simplify programs that need to perform multiple periodic tasks. The user defines a Thread object for each of those tasks, then lets the library manage their scheduled execution.
+
+It should be noted that these are not “threads” in the real computer-science meaning of the term: tasks are implemented as functions that are periodically run to completion. On the one hand, this means that the only way a task can “yield” the CPU is by returning to the caller, and it is thus inadvisable to delay() or do long waits inside a task. On the other hand, this makes ArduinoThreads memory friendly, as no stack needs to be allocated per task.
 
 ## Instalation
 
