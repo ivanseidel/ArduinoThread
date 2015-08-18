@@ -1,0 +1,12 @@
+{
+    "name": "Thread",
+    "keywords": "thread, task",
+    "description": "A library for managing the periodic execution of multiple tasks",
+    "repository":
+    {
+        "type": "git",
+        "url": "https://github.com/ivanseidel/ArduinoThread.git"
+    },
+    "frameworks": "arduino",
+    "platforms": "atmelavr"
+}
