@@ -173,7 +173,7 @@ interrupts(); // This will enable the interrupts egain. DO NOT FORGET!
 - `void ThreadController::remove(Thread* _thread)` - This will remove the Thread from the ThreadController.
 - `void ThreadController::remove(int index)` - This will remove the thread on the position `index`.
 - `void ThreadController::clear()` - This will remove ALL threads from the ThreadController array.
-- `void ThreadController::size(bool cached = true)` - Returns how many Threads are allocated
+- `int ThreadController::size(bool cached = true)` - Returns how many Threads are allocated
   inside the ThreadController. If cached is `false`, will force the calculation of threads.
 - `Thread* ThreadController::get(int index)` - Returns the Thread on the position `index`.
 
