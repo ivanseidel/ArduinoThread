@@ -17,7 +17,7 @@ ArduinoThreads is designed to simplify programs that need to perform multiple pe
 
 It should be noted that these are not “threads” in the real computer-science meaning of the term: tasks are implemented as functions that are periodically run to completion. On the one hand, this means that the only way a task can “yield” the CPU is by returning to the caller, and it is thus inadvisable to delay() or do long waits inside a task. On the other hand, this makes ArduinoThreads memory friendly, as no stack needs to be allocated per task.
 
-## Instalation
+## Installation
 
 1. "Download":https://github.com/ivanseidel/ArduinoThread/archive/master.zip the Master branch from gitHub.
 2. Unzip and modify the Folder name to "ArduinoThread" (Remove the '-master')
