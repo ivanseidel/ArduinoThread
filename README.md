@@ -79,7 +79,8 @@ if(myThread.shouldRun()){
 
 Now that you got the idea, let's think a little bit: What if i have 3, 5, 100 Threads. Do I need to check EACH one?!?
 
-* The answer is: NO. Create a `ThreadController`, and put all your boring-complex Threads inside it!
+* The answer is: NO. Create a `ThreadController` or `StaticThreadController`,
+and put all your boring-complex Threads inside it!
 
 ```c++
 // Instantiate a new ThreadController
@@ -90,11 +91,18 @@ controller.add(&hisThread);
 controller.add(&sensorReadings);
 ...
 ```
+or
+```c++
+// Instantiate a new StaticThreadController
+StaticThreadController<2> controller (Thread(my_callback, my_interval), Thread(his_callback, his_interval));
+// You don't need to do anything else, the treads will be created and kept inside controller
+...
+```
 
 * You have created, configured, grouped it. What is missing? Yes, whe should RUN it!
 
 ```c++
-// call run on a Thread or a ThreadController to run it
+// call run on a Thread, a ThreadController or a StaticThreadController to run it
 controller.run();
 ```
 
@@ -125,6 +133,11 @@ Checkout `SensorThread` example.
 or disable a GROUP of Threads, think about putting all of them inside a ThreadController,
 and adding this ThreadController to another ThreadController (YES! One ThreadController 
 inside another). Check `ControllerInController` example.
+
+* There is a `StaticThreadController` which is better to use when you know exact number of
+threads to run. You cannot add or remove threads in runtime, but `StaticThreadController`
+doesn't have any memory overhead to keep all the treads together, also the code may be slighly
+more optimized because all the threads always exist and no need to do any runtime checks.
 
 * Check the full example `CustomTimedThread` for a cool application of Threads that runs
 for a period, after a button is pressed.
@@ -176,6 +189,13 @@ interrupts(); // This will enable the interrupts egain. DO NOT FORGET!
 - `int ThreadController::size(bool cached = true)` - Returns how many Threads are allocated
   inside the ThreadController. If cached is `false`, will force the calculation of threads.
 - `Thread* ThreadController::get(int index)` - Returns the Thread on the position `index`.
+
+
+- `void StaticThreadController::run()` - This will run the all `Threads` within the `StaicThreadController`,
+  only if needed (if shouldRun returns true);
+- `int StaticThreadController::size()` - Returns how many Threads are allocated inside the StaticThreadController.
+- `Thread* ThreadController::get(int index)` - Returns the Thread on the position `index` and `nullptr` if `index`
+  is out of bounds.
 
 ### You don't need to know:
 - Nothing, yet ;)
