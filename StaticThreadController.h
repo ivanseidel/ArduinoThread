@@ -21,10 +21,12 @@
 template <int N>
 class StaticThreadController: public Thread{
 protected:
-	Thread thread[N];
+        //since this is a static controller, the pointers themselves can be const
+	//it should be distinguished from 'const Thread* thread[N]'
+	Thread * const thread[N];
 public:
 	template <typename... T>
-        StaticThreadController(T&&... params) :
+        StaticThreadController(T... params) :
 		Thread(),
 		thread{params...}
 	{
@@ -40,8 +42,8 @@ public:
 	{
 		for(int i = 0; i < N; i++){
 			// Is enabled? Timeout exceeded?
-			if(thread[i].shouldRun()){
-				thread[i].run();
+			if(thread[i]->shouldRun()){
+				thread[i]->run();
 			}
 		}
 
@@ -54,12 +56,16 @@ public:
 
 	// Return the I Thread on the array
 	// Returns nullptr if index is out of bounds
-	Thread* get(int index) { return (index >= 0 && index < N) ? &thread[index] : nullptr; };
+	Thread* get(int index) {
+		return (index >= 0 && index < N) ? thread[index] : nullptr;
+	};
 
 	// Return the I Thread on the array
 	// Doesn't perform any bounds checks and behaviour is
 	// unpredictable in case of index > N
-	Thread& operator[](int index) { return thread[index]; };
+	Thread& operator[](int index) {
+		return *thread[index];
+	};
 };
 
 #endif
