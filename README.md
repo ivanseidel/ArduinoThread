@@ -32,14 +32,17 @@ It should be noted that these are not “threads” in the real computer-science
 There are many examples showing many ways to use it. Here, we will explain Class itself,
 what it does and "how" it does.
 
-There are basicaly, two Classes included in this Library:
-`Thread` and `ThreadController` (that inherits from Thread).
+There are basicaly, three Classes included in this Library:
+`Thread`, `ThreadController` and `StaticThreadController` (both controllers inherit from Thread).
 
 - `Thread class`: This is the basic class, witch contains methods to set and run callbacks,
   check if the Thread should be runned, and also creates a unique ThreadID on the instantiation.
 
 - `ThreadController class`: Responsable for "holding" multiple Threads. Can also be called
   as "a group of Threads", and is used to perform run in every Thread ONLY when needed.
+
+- `StaticThreadController class`: Slighly faster and smaller version of `ThreadController`.
+  It works similar to `ThreadController`, but once constructed it can't add or remove threads to run.
 
 * The instantiation of a Thread class is very simple:
 
@@ -93,9 +96,9 @@ controller.add(&sensorReadings);
 ```
 or
 ```c++
-// Instantiate a new StaticThreadController
-StaticThreadController<2> controller (Thread(my_callback, my_interval), Thread(his_callback, his_interval));
-// You don't need to do anything else, the treads will be created and kept inside controller
+// Instantiate a new StaticThreadController with the number of threads to be supplied as template parameter
+StaticThreadController<3> controller (&myThread, &hisThread, &sensorReadings);
+// You don't need to do anything else, controller now contains all the threads.
 ...
 ```
 
@@ -136,7 +139,8 @@ inside another). Check `ControllerInController` example.
 
 * There is a `StaticThreadController` which is better to use when you know exact number of
 threads to run. You cannot add or remove threads in runtime, but `StaticThreadController`
-doesn't have any memory overhead to keep all the treads together, also the code may be slighly
+doesn't have additional memory overhead to keep all the treads together, doesn't have any
+limitations how many threads to store (except of available memory) and also the code may be slighly
 more optimized because all the threads always exist and no need to do any runtime checks.
 
 * Check the full example `CustomTimedThread` for a cool application of Threads that runs
