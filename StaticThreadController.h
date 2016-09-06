@@ -40,6 +40,10 @@ public:
 	// run() Method is overrided
 	void run() override
 	{
+		// Run this thread before
+		if(_onRun != nullptr && shouldRun())
+			_onRun();
+
 		for(int i = 0; i < N; i++){
 			// Is enabled? Timeout exceeded?
 			if(thread[i]->shouldRun()){
