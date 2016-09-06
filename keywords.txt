@@ -8,6 +8,7 @@
 
 Thread	KEYWORD1
 ThreadController	KEYWORD1
+StaticThreadController	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -19,7 +20,7 @@ shouldRun	KEYWORD2
 onRun	KEYWORD2
 run	KEYWORD2
 
-# Specific of ThreadController
+# Specific of ThreadController or StaticThreadController
 add	KEYWORD2
 remove	KEYWORD2
 clear	KEYWORD2
