@@ -4,7 +4,7 @@ Thread::Thread(void (*callback)(void), unsigned long _interval){
 	enabled = true;
 	onRun(callback);
 	_cached_next_run = 0;
-	last_run = 0;
+	last_run = millis();
 
 	ThreadID = (int)this;
 	#ifdef USE_THREAD_NAMES
