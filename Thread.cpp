@@ -1,6 +1,6 @@
 #include "Thread.h"
 
-Thread::Thread(void (*callback)(void), unsigned long _interval){
+Thread::Thread(std::function<void()> callback, unsigned long _interval){
 	enabled = true;
 	onRun(callback);
 	_cached_next_run = 0;
@@ -39,7 +39,7 @@ bool Thread::shouldRun(unsigned long time){
 	return !time_remaining && enabled;
 }
 
-void Thread::onRun(void (*callback)(void)){
+void Thread::onRun(std::function<void()> callback){
 	_onRun = callback;
 }
 
