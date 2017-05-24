@@ -21,6 +21,7 @@
 #endif
 
 #include <inttypes.h>
+#include <functional>
 
 /*
 	Uncomment this line to enable ThreadName Strings.
@@ -53,7 +54,7 @@ protected:
 	void runned() { runned(millis()); }
 
 	// Callback for run() if not implemented
-	void (*_onRun)(void);		
+	std::function<void()> _onRun;
 
 public:
 
@@ -68,7 +69,7 @@ public:
 		String ThreadName;			
 	#endif
 
-	Thread(void (*callback)(void) = NULL, unsigned long _interval = 0);
+	Thread(std::function<void()> callback = NULL, unsigned long _interval = 0);
 
 	// Set the desired interval for calls, and update _cached_next_run
 	virtual void setInterval(unsigned long _interval);
@@ -80,7 +81,7 @@ public:
 	bool shouldRun() { return shouldRun(millis()); }
 
 	// Callback set
-	void onRun(void (*callback)(void));
+	void onRun(std::function<void()> callback);
 
 	// Runs Thread
 	virtual void run();
