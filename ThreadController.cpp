@@ -65,7 +65,6 @@ bool ThreadController::add(Thread* _thread){
 
 void ThreadController::remove(int id){
 	// Find Threads with the id, and removes
-	bool found = false;
 	for(int i = 0; i < MAX_THREADS; i++){
 		if(thread[i]->ThreadID == id){
 			thread[i] = NULL;
