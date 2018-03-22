@@ -49,7 +49,7 @@
 	=============== WHAT YO LEARN WITH THIS =================
 	1) Threads are actually running in 'parallel'.
 	   
-	   Synce each thread process time is very tiny, they appear
+	   Since each thread process time is very tiny, they appear
 	   as being runned in parallel.
 
 	   Because of that, clicking multiple buttons at any time,
