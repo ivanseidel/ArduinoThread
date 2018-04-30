@@ -24,7 +24,7 @@ void ThreadController::run(){
 
 	unsigned long time = millis();
 	int checks = 0;
-	for(int i = 0; i < MAX_THREADS && checks <= cached_size; i++){
+	for(int i = 0; i < MAX_THREADS && checks < cached_size; i++){
 		// Object exists? Is enabled? Timeout exceeded?
 		if(thread[i]){
 			checks++;
