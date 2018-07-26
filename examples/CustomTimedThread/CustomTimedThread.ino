@@ -113,7 +113,7 @@ public:
 		"Old" default Thread method 'shouldRun' return if
 		it should run.
 	*/
-	bool shouldRun(long time){
+	bool shouldRun(unsigned long time){
 		// Override enabled on thread when pin goes LOW.
 		if(digitalRead(pin) == LOW){
 			enabled = true;
