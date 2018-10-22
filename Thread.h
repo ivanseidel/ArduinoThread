@@ -69,6 +69,7 @@ public:
 	#endif
 
 	Thread(void (*callback)(void) = NULL, unsigned long _interval = 0);
+	virtual ~Thread() {};
 
 	// Set the desired interval for calls, and update _cached_next_run
 	virtual void setInterval(unsigned long _interval);
