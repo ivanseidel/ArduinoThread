@@ -42,7 +42,7 @@ public:
 	{
 		// Run this thread before
 		if(_onRun != nullptr && shouldRun())
-			_onRun();
+      _onRun(_param);
 
 		for(int i = 0; i < N; i++){
 			// Is enabled? Timeout exceeded?

@@ -53,7 +53,10 @@ protected:
 	void runned() { runned(millis()); }
 
 	// Callback for run() if not implemented
-	void (*_onRun)(void);		
+  void (*_onRun)(void *);
+
+  // Pointer to a parameter used in callback
+  void *_param;
 
 public:
 
@@ -68,7 +71,7 @@ public:
 		String ThreadName;			
 	#endif
 
-	Thread(void (*callback)(void) = NULL, unsigned long _interval = 0);
+  Thread(void (*callback)(void*) = NULL, unsigned long _interval = 0, void *param = NULL);
 
 	// Set the desired interval for calls, and update _cached_next_run
 	virtual void setInterval(unsigned long _interval);
@@ -80,7 +83,7 @@ public:
 	bool shouldRun() { return shouldRun(millis()); }
 
 	// Callback set
-	void onRun(void (*callback)(void));
+  void onRun(void (*callback)(void *));
 
 	// Runs Thread
 	virtual void run();
