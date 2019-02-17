@@ -36,7 +36,7 @@ public:
 	bool add(Thread* _thread);
 
 	// remove the thread (given the Thread* or ThreadID)
-	void remove(int _id);
+	void remove(uintptr_t _id);
 	void remove(Thread* _thread);
 
 	// Removes all threads

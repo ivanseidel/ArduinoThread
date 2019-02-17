@@ -180,7 +180,7 @@ interrupts(); // This will enable the interrupts egain. DO NOT FORGET!
   (Basically,the logic is: (reached time AND is enabled?).
 - `void Thread::onRun(<function>)` - The target callback function to be called.
 - `void Thread::run()` - Runs the thread (executes the callback function).
-- `int Thread::ThreadID` - Theoretically, it's the memory address. It's unique, and can
+- `uintptr_t Thread::ThreadID` - Theoretically, it's the memory address. It's unique, and can
   be used to compare if two threads are identical.
 - `int Thread::ThreadName` - A human-readable thread name. 
     Default is "Thread ThreadID", eg.: "Thread 141515". 
