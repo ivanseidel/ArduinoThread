@@ -2,7 +2,7 @@
 #include <ThreadController.h>
 
 /*
-	This example, requires a Timer Interrupt Library.
+	This example requires the Timer Interrupt Library.
 	If you are using Arduino NANO, UNO... (with ATmega168/328)
 		Please go to: http://playground.arduino.cc/code/timer1
 	If you are using Arduino DUE,
@@ -16,9 +16,9 @@
 // ThreadController that will controll all threads
 ThreadController controll = ThreadController();
 
-//My Thread
+// My Thread
 Thread myThread = Thread();
-//His Thread
+// His Thread
 Thread hisThread = Thread();
 
 // callback for myThread
@@ -73,25 +73,25 @@ void waitSerial(){
 void loop(){
 	while(1){
 		noInterrupts();	// Call to disable interrupts
-		Serial.println("Type anyting to stop myThread!");
+		Serial.println("Type anything to stop myThread!");
 		interrupts();	// Call to enable interrupts
 		waitSerial();
 		myThread.enabled = false;
 
 		noInterrupts();
-		Serial.println("Type anyting to stop hisThread!");
+		Serial.println("Type anything to stop hisThread!");
 		interrupts();
 		waitSerial();
 		hisThread.enabled = false;
 
 		noInterrupts();
-		Serial.println("Type anyting to enable myThread!");
+		Serial.println("Type anything to enable myThread!");
 		interrupts();
 		waitSerial();
 		myThread.enabled = true;
 
 		noInterrupts();
-		Serial.println("Type anyting to enable hisThread!");
+		Serial.println("Type anything to enable hisThread!");
 		interrupts();
 		waitSerial();
 		hisThread.enabled = true;
