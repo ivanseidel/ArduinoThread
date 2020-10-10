@@ -31,6 +31,9 @@ public:
 	// run() Method is overrided
 	void run();
 
+	// Try to run our threads, return how long we can sleep before next needed.  
+	long runOrDelay();
+
 	// Adds a thread in the first available slot (remove first)
 	// Returns if the Thread could be added or not
 	bool add(Thread* _thread);
@@ -48,6 +51,9 @@ public:
 	// Return the I Thread on the array
 	// Returns NULL if none found
 	Thread* get(int index);
+
+	// For debugging it is useful to know the next child thread we want to execute
+	Thread* nextThread = NULL;
 };
 
 #endif

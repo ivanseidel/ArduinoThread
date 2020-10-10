@@ -74,10 +74,15 @@ public:
 	virtual void setInterval(unsigned long _interval);
 
 	// Return if the Thread should be runned or not
-	virtual bool shouldRun(unsigned long time);
+	// Note: no longer virtual - instead override tillRun
+	bool shouldRun(unsigned long time);
 
 	// Default is to check whether it should run "now"
 	bool shouldRun() { return shouldRun(millis()); }
+
+    // Return # of msecs till this thread will run again (or MAXINT if it is disabled).  
+	// If it is overdue the value will be negative
+	virtual long tillRun(unsigned long time);
 
 	// Callback set
 	void onRun(void (*callback)(void));
