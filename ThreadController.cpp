@@ -59,10 +59,12 @@ long ThreadController::runOrDelay(){
 				t->run();
 				// threadNext = t->tillRun(time); // Check when the current thread's new deadline
 		
-				tillNext = 0; // we ran something this tick, therefore tell caller it should skip the delay this time
-				nextThread = t;
+				if(!t->canSleep) {
+					tillNext = 0; // we ran something this tick, therefore tell caller it should skip the delay this time
+					nextThread = t;
+				}
 			}
-			else if(threadNext < tillNext) {
+			else if(threadNext < tillNext && !t->canSleep) {
 				tillNext = threadNext;
 				nextThread = t;
 			}

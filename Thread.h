@@ -60,6 +60,9 @@ public:
 	// If the current Thread is enabled or not
 	bool enabled;
 
+	// If true this thread wanting to run will not be used to prevent sleeping in runWithDelay
+	bool canSleep = false;
+
 	// ID of the Thread (initialized from memory adr.)
 	int ThreadID;
 
