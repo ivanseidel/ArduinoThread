@@ -33,7 +33,7 @@ void Thread::setInterval(unsigned long _interval){
 
 long Thread::tillRun(unsigned long time){
 	if(!enabled)
-		return LONG_MAX;
+		return __LONG_MAX__;
 	else {
 		long time_remaining = (long) (_cached_next_run - time);
 

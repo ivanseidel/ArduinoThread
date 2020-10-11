@@ -46,7 +46,7 @@ long ThreadController::runOrDelay(){
 
 	unsigned long time = millis();
 	int checks = 0;
-	long tillNext = LONG_MAX;
+	long tillNext = __LONG_MAX__;
 	nextThread = NULL;
 	for(int i = 0; i < MAX_THREADS && checks < cached_size; i++){
 		// Object exists? Is enabled? Timeout exceeded?
