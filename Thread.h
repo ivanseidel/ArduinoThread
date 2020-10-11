@@ -64,7 +64,7 @@ public:
 	bool canSleep = false;
 
 	// ID of the Thread (initialized from memory adr.)
-	int ThreadID;
+	size_t ThreadID;
 
 	#ifdef USE_THREAD_NAMES
 		// Thread Name (used for better UI).

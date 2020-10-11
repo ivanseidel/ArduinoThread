@@ -6,7 +6,7 @@ Thread::Thread(void (*callback)(void), unsigned long _interval){
 	_cached_next_run = 0;
 	last_run = millis();
 
-	ThreadID = (int)this;
+	ThreadID = (size_t)this;
 	#ifdef USE_THREAD_NAMES
 		ThreadName = "Thread ";
 		ThreadName = ThreadName + ThreadID;
