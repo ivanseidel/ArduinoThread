@@ -38,6 +38,45 @@ void ThreadController::run(){
 	runned();
 }
 
+// Try to run our threads, return how long we can sleep before next needed
+long ThreadController::runOrDelay(){
+	// Run this thread before
+	if(_onRun != NULL)
+		_onRun();
+
+	unsigned long time = millis();
+	int checks = 0;
+	long tillNext = __LONG_MAX__;
+	nextThread = NULL;
+	for(int i = 0; i < MAX_THREADS && checks < cached_size; i++){
+		// Object exists? Is enabled? Timeout exceeded?
+		Thread *t = thread[i];
+		if(t){
+			checks++;
+
+			long threadNext = t->tillRun(time);
+			if(threadNext <= 0){ // This thread is ready to run right now
+				t->run();
+				// threadNext = t->tillRun(time); // Check when the current thread's new deadline
+		
+				if(!t->canSleep) {
+					tillNext = 0; // we ran something this tick, therefore tell caller it should skip the delay this time
+					nextThread = t;
+				}
+			}
+			else if(threadNext < tillNext && !t->canSleep) {
+				tillNext = threadNext;
+				nextThread = t;
+			}
+		}
+	}
+
+	// ThreadController extends Thread, so we should flag as runned thread
+	runned();
+
+	return tillNext;
+}
+
 
 /*
 	List controller (boring part)
@@ -63,7 +102,7 @@ bool ThreadController::add(Thread* _thread){
 	return false;
 }
 
-void ThreadController::remove(int id){
+void ThreadController::remove(size_t id){
 	// Find Threads with the id, and removes
 	for(int i = 0; i < MAX_THREADS; i++){
 		if(thread[i]->ThreadID == id){

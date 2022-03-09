@@ -6,7 +6,7 @@ Thread::Thread(void (*callback)(void), unsigned long _interval){
 	_cached_next_run = 0;
 	last_run = millis();
 
-	ThreadID = (int)this;
+	ThreadID = (size_t)this;
 	#ifdef USE_THREAD_NAMES
 		ThreadName = "Thread ";
 		ThreadName = ThreadName + ThreadID;
@@ -31,12 +31,19 @@ void Thread::setInterval(unsigned long _interval){
 	_cached_next_run = last_run + interval;
 }
 
-bool Thread::shouldRun(unsigned long time){
-	// If the "sign" bit is set the signed difference would be negative
-	bool time_remaining = (time - _cached_next_run) & 0x80000000;
+long Thread::tillRun(unsigned long time){
+	if(!enabled)
+		return __LONG_MAX__;
+	else {
+		long time_remaining = (long) (_cached_next_run - time);
 
+		return time_remaining;
+	}
+}
+
+bool Thread::shouldRun(unsigned long time){
 	// Exceeded the time limit, AND is enabled? Then should run...
-	return !time_remaining && enabled;
+	return tillRun(time) <= 0;
 }
 
 void Thread::onRun(void (*callback)(void)){
